@@ -40,13 +40,16 @@ public class ClientDao {
     JdbcTemplate jdbcTemplate;
     	
 	public List<Client> list(){
+		logger.info("ClientDao: Entering List");
 		List<Client> queryResult = jdbcTemplate.query("SELECT id, name, phone_number, address FROM clients",
 				simpleMapper);
 		
+		logger.info("ClientDao: Exiting List");
 		return queryResult;
 	}
 	
 	public Client get(int id) {
+		logger.info("ClientDao: Entering 'Client get' method");
 		List<Client> queryResult = jdbcTemplate.query("SELECT id, name, phone_number,address FROM clients WHERE id = ? LIMIT 1", 
 				new Object[] {id},
 				simpleMapper);
@@ -55,12 +58,14 @@ public class ClientDao {
 			return null;
 		}
 		
+		logger.info("ClientDao: Exit 'Client get' method");
 		return queryResult.get(0);
 		
 		
 	}
 	
 	public Client save(Client client) {
+		logger.info("ClientDao: Entering 'Client Save' method...");
 		Integer id = client.getId();
 		if(id == null) {
 			
@@ -85,7 +90,7 @@ public class ClientDao {
 			jdbcTemplate.update("UPDATE clients SET name = ?, phone_number = ? , address = ? WHERE id = ?",
 					new Object[] {client.getName(), client.getPhoneNumber(), client.getAddress(), id});
 		}
-		
+		logger.info("ClientDao: Exiting 'Client Save' method...");
 		return get(id);
 	}
 	

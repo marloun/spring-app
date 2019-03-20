@@ -35,6 +35,7 @@ public class SecurityDao {
     @Autowired
     JdbcTemplate jdbcTemplate;    	
 	public User getUserByUsername(String username) {
+		logger.info("SecurityDao: Entering 'User getUserByUsername' method");
 		logger.debug("in getUserByUsername({})", username);
 		List<User> queryResult = jdbcTemplate.query("SELECT id, username, encoded_password, role FROM users WHERE username = ?", 
 				new Object[] {username},
@@ -48,6 +49,7 @@ public class SecurityDao {
 			throw new IllegalStateException("Found more than one user matching the username "+username);
 		}
 		
+		logger.info("SecurityDao: Exiting 'User getUserByUsername' method");
 		return queryResult.get(0);
 		
 		
