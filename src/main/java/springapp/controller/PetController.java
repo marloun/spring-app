@@ -139,7 +139,7 @@ public class PetController {
         Pet pet = petService.savePet(command);
 
 
-        redirectAttributes.addAttribute("saved", true);
+        redirectAttributes.addAttribute("x", true);
         if(fromClientPage) {
             redirectAttributes.addAttribute("clientId", pet.getClientId());
         }
